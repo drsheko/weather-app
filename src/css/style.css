@@ -1,0 +1,42 @@
+body{
+    background-image: url("/src/images/night.jpeg");
+    color:white;
+}
+
+.hourlyContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x:auto;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    
+}
+.card2{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+.rain{
+    background-image: url('/rain-icon-trendy-flat-style-isolated-grey-background-cloud-rain-symbol-your-web-site-design-logo-app-ui-modern-fore-rain-203778809.jpg');
+}
+
+.other{
+    background-image: url('/src/icons/day.svg');
+}
+
+
+
+
+
+
+
+
+
+.dailyContainer{
+    color:white;
+}
