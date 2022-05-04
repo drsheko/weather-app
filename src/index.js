@@ -1,4 +1,8 @@
 import './css/style.css';
+
+const images = require.context('/src/icons', true)
+const imagePath = (name) => images(name, true)
+
 var moment = require('moment-timezone');
 
 
@@ -84,11 +88,18 @@ function createDailyCard (index, tz, resp) {
   card2.appendChild(cardImage2)
   card2.appendChild(cardMaxTemp)
   card2.appendChild(cardMinTemp)
+
+  cardDay.className="dailyCardContents"
+  cardMaxTemp.className="dailyCardContents"
+  cardMinTemp.className="dailyCardContents"
 //console.log(moment.tz(timeZone).add(1,'hours').format('ha'))
 cardDay.textContent =  moment.tz(tz).add(index,'days').format('ddd')
 cardMaxTemp.textContent =Math.floor( resp.daily[index].temp.max -273) + 'C';
 cardMinTemp.textContent =Math.floor( resp.daily[index].temp.min -273) + 'C';
-cardImage2.src = '../src/icons/day.svg'
+cardImage2.className = "dailyImage"
+
+let imgSource = resp.daily[index].weather[0].icon + '.svg'
+cardImage2.src = imagePath(`./${imgSource}`) 
 //cardImage.className='rain'
 let imageSource ;
 //getImage (index , resp)
@@ -97,14 +108,14 @@ let imageSource ;
 
 
 
-function getImage (index , resp){
+/*function getImage (index , resp){
   alert('image')
 let a = resp.hourly[index].weather.main ;
 if (a==="rain"){ imageSource = './icons/rainy-1.svg'}
 else { imageSource = './icons/day.svg'}
 
   return imageSource
-}
+}*/
 
 
 function fillHourlyContainer(tz, resp){
@@ -127,6 +138,7 @@ function fillDailyContainer(tz, resp){
 function createHourlyCard (index, tz, resp) {
 
   const card = document.createElement('div')
+  card.className="card"
   hourlyContainer.appendChild(card)
   const cardTime = document.createElement('div')
   const cardImage = document.createElement('img')
@@ -137,6 +149,6 @@ function createHourlyCard (index, tz, resp) {
 //console.log(moment.tz(timeZone).add(1,'hours').format('ha'))
 cardTime.textContent =  moment.tz(tz).add(index,'hours').format('ha')
 cardTemp.textContent = Math.floor( resp.hourly[index].temp -273) + 'C';
-cardImage.src = "./icons/cloudy.svg"
+let imgSource = resp.hourly[index].weather[0].icon + '.svg' ;
+cardImage.src = imagePath(`./${imgSource}`) ;
 }
-
