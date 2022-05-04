@@ -27,7 +27,7 @@ async function getWeather (){
         console.log(w2response)
 
       cityName.textContent = weatherResponse[0].name ;
-      currentTemperature.textContent =Math.floor(w2response.current.temp -273);
+      currentTemperature.textContent =Math.floor(w2response.current.temp -273)+ "°C";
       currentDescription.textContent = w2response.current.weather[0].description ;
        feelLike.textContent += w2response.current.feels_like 
        humidity.textContent += w2response.current.humidity
@@ -90,20 +90,19 @@ function createDailyCard (index, tz, resp) {
   card2.appendChild(cardMinTemp)
 
   cardDay.className="dailyCardContents"
-  cardMaxTemp.className="dailyCardContents"
-  cardMinTemp.className="dailyCardContents"
-//console.log(moment.tz(timeZone).add(1,'hours').format('ha'))
+  cardMaxTemp.className="dailyCardContents temperature"
+  cardMinTemp.className="dailyCardContents temperature"
+
 cardDay.textContent =  moment.tz(tz).add(index,'days').format('ddd')
-cardMaxTemp.textContent =Math.floor( resp.daily[index].temp.max -273) + 'C';
-cardMinTemp.textContent =Math.floor( resp.daily[index].temp.min -273) + 'C';
+cardMaxTemp.textContent =Math.floor( resp.daily[index].temp.max -273)+ "°C"  ;
+cardMinTemp.textContent =Math.floor( resp.daily[index].temp.min -273)+ "°C";
 cardImage2.className = "dailyImage"
 
 let imgSource = resp.daily[index].weather[0].icon + '.svg'
 cardImage2.src = imagePath(`./${imgSource}`) 
-//cardImage.className='rain'
+
 let imageSource ;
-//getImage (index , resp)
-//cardImage.src = './icons/day.svg';
+
 }
 
 
@@ -143,12 +142,49 @@ function createHourlyCard (index, tz, resp) {
   const cardTime = document.createElement('div')
   const cardImage = document.createElement('img')
   const cardTemp = document.createElement('div')
+  cardTemp.className = "temperature" ;
   card.appendChild(cardTime)
   card.appendChild(cardImage)
   card.appendChild(cardTemp)
-//console.log(moment.tz(timeZone).add(1,'hours').format('ha'))
+
 cardTime.textContent =  moment.tz(tz).add(index,'hours').format('ha')
-cardTemp.textContent = Math.floor( resp.hourly[index].temp -273) + 'C';
+cardTemp.textContent = Math.floor( resp.hourly[index].temp -273) + "°C" ;
 let imgSource = resp.hourly[index].weather[0].icon + '.svg' ;
 cardImage.src = imagePath(`./${imgSource}`) ;
+}
+
+
+
+
+
+
+const sheko = document.querySelector('.sheko')
+const sheko1 = document.querySelector('.sheko1')
+
+sheko.addEventListener('click',cToF)
+sheko1.addEventListener('click',fToC)
+
+
+function cToF (){
+  let temperatureDivs = document.querySelectorAll('.temperature')
+  temperatureDivs.forEach(ele=>{
+    ele.textContent.slice(0,-2)
+
+    let modified =  Math.floor((parseInt(ele.textContent)* 9/5 )+32)
+    console.log(modified)
+    return ele.textContent = modified + "°F" ;
+  })
+   
+    
+}
+
+
+function fToC (){
+  let temperatureDivs = document.querySelectorAll('.temperature')
+  temperatureDivs.forEach(ele=>{
+    ele.textContent.slice(0,-2)
+    let modified1 = Math.floor( (parseInt(ele.textContent) -32 ) * 5/9)
+    console.log(modified1)
+    return ele.textContent = modified1 + "°C"  ;
+  })
 }
