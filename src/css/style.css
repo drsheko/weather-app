@@ -6,9 +6,12 @@ body{
     text-align: center;
 }
 
-
+.cityName{
+    font-size: 30px;
+    color:white;
+}
 .currentTemperature{
-    font-size: 38px;
+    font-size: 40px;
     color:yellow;
 }
 .hourlyContainer{

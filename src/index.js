@@ -29,35 +29,25 @@ async function getWeather (){
       cityName.textContent = weatherResponse[0].name ;
       currentTemperature.textContent =Math.floor(w2response.current.temp -273)+ "°C";
       currentDescription.textContent = w2response.current.weather[0].description ;
-       feelLike.textContent += w2response.current.feels_like 
-       humidity.textContent += w2response.current.humidity
+       //feelLike.textContent += w2response.current.feels_like 
+       //humidity.textContent += w2response.current.humidity
       
       var timeZone = w2response.timezone
       currentTime.textContent = moment.tz(timeZone).format('ddd h:mm a')
       
-      let currentHour = moment.tz(timeZone).add(1,'hours').format('ha')
-      
+      let currentHour = moment.tz(timeZone).add(1,'hours').format('ha');
     
       fillHourlyContainer(timeZone, w2response)
-
-      //createDailyCard (4, timeZone, w2response)
-
-      fillDailyContainer(timeZone, w2response)
-     
-      
+      fillDailyContainer(timeZone, w2response)  
     }
 
    catch{
 
    }
-
-
 }
-
 
 const searchBtn = document.querySelector('.searchBtn')
 searchBtn.addEventListener('click',getWeather)
-
 
 const cityName = document.querySelector('.cityName')
 const currentTemperature = document.querySelector('.currentTemperature');
@@ -71,9 +61,6 @@ const humidity = document.querySelector(".humidity")
 
 const hourlyContainer = document.querySelector('.hourlyContainer')
 const dailyContainer = document.querySelector('.dailyContainer')
-
-
-
 
 function createDailyCard (index, tz, resp) {
 
